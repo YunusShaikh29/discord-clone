@@ -16,7 +16,7 @@ export async function PATCH(
         
         if(!params.serverId){
             
-            return new NextResponse("Missing Params", {status: 400})
+            return new NextResponse("Missing server Id", {status: 400})
         }
 
 
