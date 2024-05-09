@@ -13,7 +13,7 @@ export async function DELETE(
     const serverId = searchParams.get("serverId");
 
     if (!profile) {
-      return new NextResponse("Unauthorized", { status: 400 });
+      return new NextResponse("Unauthorized", { status: 401 });
     }
 
     if (!serverId) {
