@@ -37,22 +37,21 @@ export const InviteModal = () => {
     }, 1000);
   };
 
-
   const onNew = async () => {
-    try{
-      setIsLoading(true)
+    try {
+      setIsLoading(true);
 
-      const response = await axios.patch(`/api/servers/${server?.id}/invite-code`)
-      
-      onOpen("invite", {server: response.data})
+      const response = await axios.patch(
+        `/api/servers/${server?.id}/invite-code`
+      );
 
-    }catch(error) {
+      onOpen("invite", { server: response.data });
+    } catch (error) {
       console.log(error);
-      
-    }finally {
-      setIsLoading(false)
+    } finally {
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
