@@ -4,7 +4,7 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { ChannelType } from "@prisma/client";
-import qs from "query-string"
+import qs from "query-string";
 
 import {
   Dialog,
@@ -35,6 +35,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useEffect } from "react";
 
 const formSchema = z.object({
   name: z
@@ -47,33 +48,41 @@ const formSchema = z.object({
 });
 
 export const CreateChannelModal = () => {
-  const { isOpen, onClose, type } = useModal();
+  const { isOpen, onClose, type, data } = useModal();
 
   const router = useRouter();
-  const params = useParams()
+  const params = useParams();
 
   const isModalOpen = isOpen && type === "createChannel";
+  const { channelType } = data;
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      type: ChannelType.TEXT,
+      type: channelType || ChannelType.TEXT,
     },
   });
+
+  useEffect(() => {
+    if (channelType) {
+      form.setValue("type", channelType);
+    } else {
+      form.setValue("type", channelType?.TEXT);
+    }
+  }, [form, channelType]);
 
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log(values);
     try {
-
       const url = qs.stringifyUrl({
         url: `/api/channels`,
         query: {
-          serverId: params?.serverId
-        }
-      })
+          serverId: params?.serverId,
+        },
+      });
 
       await axios.post(url, values);
 
@@ -134,7 +143,7 @@ export const CreateChannelModal = () => {
                     >
                       <FormControl>
                         <SelectTrigger className="bg-zinc-300/50 b-0 focus:right-0 text-black ring-offset-0 focus:ring-offset-0 capitalize outline-none">
-                        <SelectValue placeholder="Select a Channel type"/>
+                          <SelectValue placeholder="Select a Channel type" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
