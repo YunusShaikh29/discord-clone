@@ -68,7 +68,7 @@ export const CreateChannelModal = () => {
     if (channelType) {
       form.setValue("type", channelType);
     } else {
-      form.setValue("type", channelType?.TEXT);
+      form.setValue("type", "TEXT");
     }
   }, [form, channelType]);
 
