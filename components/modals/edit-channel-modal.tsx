@@ -37,6 +37,7 @@ import {
 } from "@/components/ui/select";
 import { useEffect } from "react";
 
+//@ts-ignore
 const formSchema = z.object({
   name: z
     .string()

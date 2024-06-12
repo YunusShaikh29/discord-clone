@@ -1,41 +1,42 @@
 import { db } from "@/lib/db";
 
-export const getOrCreateConversation = async (memberOneId: string, memberTwoId: string) => {
-    let conversation = await findConversation(memberOneId, memberTwoId) || await findConversation(memberTwoId, memberOneId)
+export const getOrCreateConversation = async (
+  memberOneId: string,
+  memberTwoId: string
+) => {
+  let conversation =
+    (await findConversation(memberOneId, memberTwoId)) ||
+    (await findConversation(memberTwoId, memberOneId));
 
-    if(!conversation){
-        conversation = await createNewConversation(memberOneId, memberTwoId)
-    }
+  if (!conversation) {
+    conversation = await createNewConversation(memberOneId, memberTwoId);
+  }
 
-    return conversation
-}
-
-
-
+  return conversation;
+};
 
 const findConversation = async (memebrOneId: string, memberTwoId: string) => {
-    try{
-
-        return await db.conversation.findFirst({
-          where: {
-            AND: [{ memberOneId: memebrOneId }, { memberTwoId: memberTwoId }],
-          },
+  try {
+    return await db.conversation.findFirst({
+      where: {
+        AND: [{ memberOneId: memebrOneId }, { memberTwoId: memberTwoId }],
+      },
+      include: {
+        memberOne: {
           include: {
-            memberOne: {
-              include: {
-                profile: true,
-              },
-            },
-            memberTwo: {
-              include: {
-                profile: true,
-              },
-            },
+            profile: true,
           },
-        });
-    }catch(e){
-        return null
-    }
+        },
+        memberTwo: {
+          include: {
+            profile: true,
+          },
+        },
+      },
+    });
+  } catch (e) {
+    return null;
+  }
 };
 
 const createNewConversation = async (
