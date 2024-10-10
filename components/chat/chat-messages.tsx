@@ -42,10 +42,13 @@ export const ChatMessages = ({
 
     const queryKey = `chat:${chatId}`
 
-     // Log the query parameters being sent to the hook
+    //  Log the query parameters being sent to the hook
     //  console.log("Querying chat with chatId:", chatId);
     //  console.log("Param key:", paramKey);
     //  console.log("Param value:", paramValue);
+    //  console.log("Socket Url", socketUrl)
+    //  console.log("Socket Query", socketQuery)
+    
 
 
     const {
