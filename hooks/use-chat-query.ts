@@ -58,7 +58,7 @@ export const useChatQuery = ({
     queryKey: [queryKey], 
     queryFn: fetchMessages,
     getNextPageParam: (lastPage) => lastPage?.nextCursor ?? null, // Return null if no next page
-    initialPageParam: null, // Set initial page param to null for the first page
+    initialPageParam: null, // initial page param is null for the first page
     refetchInterval: isConnected ? false : 1000, // using polling here
   });
 

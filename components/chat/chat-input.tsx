@@ -1,19 +1,19 @@
 "use client";
 
 import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-
 import axios from "axios";
 import qs from "query-string";
-import { useForm } from "react-hook-form";
-import { Plus, Smile } from "lucide-react";
+
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useModal } from "@/hooks/use-modal-store";
+
+import { Input } from "@/components/ui/input";
 import { EmojiPicker } from "@/components/emoji-picker";
+import { Plus } from "lucide-react";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+
+import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { useQueryClient } from "@tanstack/react-query";
 
 interface ChatInputProps {
   apiUrl: string;
@@ -27,9 +27,6 @@ const formSchema = z.object({
 });
 
 export const ChatInput = ({ apiUrl, name, query, type }: ChatInputProps) => {
-
-  // const queryClient = useQueryClient()
-  // const queryKey = `chat:${query.channelId}`
 
   const { onOpen } = useModal();
   const router = useRouter()
