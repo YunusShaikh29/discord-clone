@@ -13,6 +13,7 @@ import { Plus, Smile } from "lucide-react";
 import { useModal } from "@/hooks/use-modal-store";
 import { EmojiPicker } from "@/components/emoji-picker";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface ChatInputProps {
   apiUrl: string;
@@ -26,6 +27,10 @@ const formSchema = z.object({
 });
 
 export const ChatInput = ({ apiUrl, name, query, type }: ChatInputProps) => {
+
+  // const queryClient = useQueryClient()
+  // const queryKey = `chat:${query.channelId}`
+
   const { onOpen } = useModal();
   const router = useRouter()
 

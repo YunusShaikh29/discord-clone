@@ -7,6 +7,7 @@ import { Loader2, ServerCrash } from "lucide-react";
 import { Fragment } from "react";
 import { ChatItem } from "./chat-item";
 import {format} from "date-fns"
+import { useChatSocket } from "@/hooks/use-chat-socket";
 
 const DATE_FORMAT = "d MMM yyyy, hh:mm aaa"
 
@@ -41,6 +42,8 @@ export const ChatMessages = ({
 }: ChatMessagesProps) => {
 
     const queryKey = `chat:${chatId}`
+    const addKey = `chat:${chatId}:messages`
+    const updateKey = `chat:${chatId}:message:update`
 
     //  Log the query parameters being sent to the hook
     //  console.log("Querying chat with chatId:", chatId);
@@ -65,6 +68,14 @@ export const ChatMessages = ({
         paramKey,
         paramValue
     })
+
+
+    useChatSocket({
+      addKey,
+      updateKey,
+      queryKey,
+    })
+
 
     if(isLoading){
       return <div className="flex flex-col flex-1 justify-center items-center">

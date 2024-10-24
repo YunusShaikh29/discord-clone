@@ -108,6 +108,7 @@ export const ChatItem = ({
         })
 
         await axios.patch(url, values)
+        
         setIsEditing(false)
     }catch(error){
         console.log(error)
@@ -119,7 +120,7 @@ export const ChatItem = ({
     form.reset({
         content: content
     })
-  }, [content])
+  }, [content, form])
 
 
   const isAdmin = currentMember.role === "ADMIN";

@@ -15,8 +15,8 @@ export async function GET(req:Request) {
         const channelId = searchParams.get("channelId")
 
          // Log incoming parameters
-         console.log("Received channelId:", channelId);
-         console.log("Received cursor:", cursor);
+        //  console.log("Received channelId:", channelId);
+        //  console.log("Received cursor:", cursor);
 
         if(!profile){
             return new NextResponse("Unauthorized", {status: 401})
